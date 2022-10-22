@@ -78,7 +78,7 @@ plugins=(
         docker docker-compose
         macos macports man
         minikube kubectl kube-ps1
-        git git-extras gitfast git-prompt git-open
+        git git-extras gitfast git-prompt
         ssh-agent gpg-agent
         golang
         history history-substring-search
@@ -91,7 +91,7 @@ zstyle :omz:plugins:ssh-agent identities github
 zstyle :omz:plugins:ssh-agent lifetime 12h
 
 # speed up completions
-# From https://coderwall.com/p/9fksra/speed-up-your-zsh-completions
+# From https://coderwall.com/p/9fksra/speed-up-your-zsh-completionl
 zstyle ':completion:*' accept-exact '*(N)'
 zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path ~/.zsh/cache
@@ -136,7 +136,6 @@ export PATH
 
 export PAGER="less -XF "
 
-source '/opt/local/lib/azure-cli/az.completion'
 source ~/.iterm2_shell_integration.zsh
 
 
@@ -146,4 +145,3 @@ compdef '_dispatch which which' cat-which
 # Terraform completion
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /opt/local/bin/terraform terraform
-

@@ -8,6 +8,8 @@
 
 - link:
     ~/.vimrc:
+    ~/.config/nvim/init.vim:
+      path: vimrc
     ~/.zshrc:
     ~/bin:
 
