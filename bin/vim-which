@@ -1,0 +1,71 @@
+#!/usr/bin/env bash
+
+function usage() {
+  echo "usage: $(basename $0) <command>"
+}
+
+CMD="$1"
+if [[ -z "$CMD" ]]; then
+  usage
+  exit 1
+fi
+
+function askYn() {
+  read -r -n1 -p "$1 [Y/n] " input
+  echo
+  case $input in
+    "" | [yY])
+      return 0
+      ;;
+    *) ;;
+  esac
+
+  return 1
+}
+
+function echoCall() {
+  echo $@
+  $@
+}
+
+BIN_DIR=$HOME/bin
+
+IS_NEW=false
+CMD_PATH=$(which "$CMD")
+if [ $? -ne 0 ]; then
+  CMD_PATH=$BIN_DIR/$CMD
+  if ! askYn "$CMD was not found in your PATH. Would you like to create $CMD_PATH?"; then
+    exit 0
+  fi
+  if [ -e $CMD_PATH ]; then
+    echo "warn: $CMD_PATH already exists"
+  else
+    echo "#!/usr/bin/env bash" >$CMD_PATH
+    IS_NEW=true
+  fi
+fi
+
+case "$CMD_PATH" in
+  /usr/local/bin/*) ;;
+  $HOME/*) ;;
+  *)
+    echo "warn: editing file outside of /usr/local/bin/ or $HOME"
+    ;;
+esac
+
+if ! [ -w "$CMD_PATH" ]; then
+  SUDO=sudo
+fi
+
+echoCall $SUDO vim "$CMD_PATH"
+
+if ! $IS_NEW; then
+  exit
+fi
+
+if ! askYn "Would you like to keep $CMD_PATH?"; then
+  echoCall rm $CMD_PATH
+  exit
+fi
+
+echoCall chmod +x $CMD_PATH

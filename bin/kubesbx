@@ -1,0 +1,6 @@
+#!/bin/bash
+
+SBX_ID="${1#sbx-}"
+
+set -x
+aws eks --region us-east-1 update-kubeconfig --name "sbx-$SBX_ID-cp-eks" --alias "sbx-$SBX_ID"

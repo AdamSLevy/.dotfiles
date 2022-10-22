@@ -1,0 +1,26 @@
+#!/bin/bash
+
+function docker-login {
+  test -n "${AWS_REGION}" || {
+    echo "ERROR: AWS_REGION variable is missing." >&2
+    exit 1
+  }
+  test -n "${CONTAINER_REGISTRY}" || {
+    echo "ERROR: CONTAINER_REGISTRY variable is missing." >&2
+    exit 1
+  }
+  aws ecr get-login-password --region "${AWS_REGION}" |
+    docker login --username AWS --password-stdin "${CONTAINER_REGISTRY}"
+}
+
+# export AWS_PROFILE=dbaas-stage-0001-temp
+# AWS_REGION=us-east-1
+# CONTAINER_REGISTRY=940955396205.dkr.ecr.us-east-1.amazonaws.com
+
+# docker-login
+
+export AWS_PROFILE=dbaas-test-0005-temp
+AWS_REGION=us-east-1
+CONTAINER_REGISTRY=264138468394.dkr.ecr.us-east-1.amazonaws.com
+
+docker-login

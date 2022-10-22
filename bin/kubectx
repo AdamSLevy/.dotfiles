@@ -1,0 +1,12 @@
+#!/bin/bash
+
+KUBECTX=/opt/local/bin/kubectx
+
+CTX=$1
+
+if [[ $# -ne 1 ]] || ! [[ $CTX =~ sbx- ]]; then
+  $KUBECTX $@
+  exit $?
+fi
+
+kubesbx $CTX

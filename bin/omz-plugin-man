@@ -1,0 +1,19 @@
+#!/bin/bash
+
+PLUGIN_DIR="$HOME/.oh-my-zsh/plugins/$1"
+
+if ! [[ -e $PLUGIN_DIR ]]; then
+  echo "no such plugin"
+  exit 1
+fi
+
+README="$PLUGIN_DIR/README.md"
+if ! [[ -e $README ]]; then
+  echo "plugin does not have a README.md file"
+  set =x
+  ls "$PLUGIN_DIR"
+  set+x
+  exit 1
+fi
+
+bat "$README"

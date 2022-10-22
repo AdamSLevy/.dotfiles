@@ -1,0 +1,12 @@
+#!/bin/bash
+
+DAEMON="LogiMgrDaemon"
+PID=$(pgrep $DAEMON)
+
+echo "Killing $DAEMON $PID"
+kill $PID
+lsof -p $PID +r 1 &>/dev/null
+
+while ! pgrep $DAEMON; do
+  sleep ".1s"
+done

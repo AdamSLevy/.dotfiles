@@ -1,0 +1,18 @@
+#!/bin/bash -
+set -o nounset # Treat unset variables as an error
+
+SUDOERS=/etc/pam.d/sudo
+
+AUTH="auth       sufficient     pam_tid.so"
+
+TEMP="$(mktemp)"
+
+if grep -q "$AUTH" "$SUDOERS"; then
+  echo "already done"
+  exit 0
+fi
+
+echo "updating $SUDOERS"
+chmod u+w "$SUDOERS"
+echo "$AUTH" | cat - "$SUDOERS" >"$TEMP" && mv "$TEMP" "$SUDOERS"
+chmod u-w "$SUDOERS"

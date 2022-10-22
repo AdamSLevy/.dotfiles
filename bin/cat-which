@@ -1,0 +1,15 @@
+#!/bin/bash
+
+function usage() {
+  echo "usage: $(basename $0) <command>"
+}
+
+CMD="$1"
+if [[ -z "$CMD" ]]; then
+  usage
+  exit 1
+fi
+
+CMD_PATH=$(which "$CMD")
+
+cat "$CMD_PATH"

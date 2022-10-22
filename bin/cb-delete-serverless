@@ -1,0 +1,49 @@
+#!/bin/bash
+
+set -Eeuo pipefail
+
+function usage() {
+  echo "Usage: "
+  echo
+  echo "$(basename $0) <Environment> <Cluster ID>"
+}
+
+if [[ $# != 2 ]]; then
+  echo "error: invalid number of arguments"
+  echo
+  usage
+  exit 1
+fi
+
+CP_ENV=$1
+CLUSTER_ID=$2
+
+function restore-kubectx() {
+  kubectx -
+}
+
+if ! [[ $(kubectx -c) =~ $CP_ENV ]]; then
+  kubectx $(kubectx | grep $CP_ENV | head -n 1)
+  trap restore-kubectx EXIT
+fi
+
+SECRET="cp-api-secrets-auth"
+KEY="TOKEN_FOR_INTERNAL_SUPPORT"
+TOKEN=$(kubectl-decode-secret --print $SECRET $KEY)
+
+if [[ "$CP_ENV" =~ sbx-[0-9]? ]]; then
+  CP_ENV=${CP_ENV}.sandbox
+fi
+
+CP_API_URL="$CP_ENV.nonprod-project-avengers.com"
+
+curl --request DELETE "https://api.$CP_API_URL/internal/support/serverless-dataplanes/$CLUSTER_ID" \
+  --header "Authorization: Bearer $TOKEN" \
+  --header "Content-Type: application/json" \
+  --data-raw '{}' \
+  --fail-with-body \
+  --location \
+  --connect-timeout 3
+
+echo
+echo "Queued serverless dataplane for deletion."

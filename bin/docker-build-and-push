@@ -1,0 +1,104 @@
+#!/bin/bash
+set -e
+
+function usage() {
+  cmd=$(basename $0)
+  echo "$cmd <targets>"
+  echo
+  echo "example: $cmd cp-jobs cp-api"
+  exit 1
+}
+
+if (($# == 0)); then
+  usage
+fi
+
+trap 'trap " " SIGTERM; kill 0; wait;' SIGINT SIGTERM
+
+if [[ $IMAGE_TAG == "" ]]; then
+  echo "IMAGE_TAG is not set. Please set it to something unique such as your name."
+  exit 1
+fi
+
+# hasSpacesRegex=" |'"
+# if [[ "$IMAGE_TAG" =~ $hasSpacesRegex ]]; then
+#   echo "IMAGE_TAG=\"$IMAGE_TAG\" contains one or more spaces. Please change it to not have any spaces."
+#   exit 1
+# fi
+
+echo "Using the following environment variables:"
+echo IMAGE_TAG=$IMAGE_TAG
+echo AWS_PROFILE=${AWS_PROFILE:=dbaas-test-0005-temp}
+echo AWS_REGION=${AWS_REGION:=us-east-1}
+echo CONTAINER_REGISTRY=${CONTAINER_REGISTRY:=264138468394.dkr.ecr.us-east-1.amazonaws.com}
+echo
+
+function print-and-run() {
+  (
+    set -x
+    ${@}
+  )
+}
+
+function docker-login() {
+  test -n "${AWS_REGION}" || {
+    echo "ERROR: AWS_REGION variable is missing." >&2
+    exit 1
+  }
+  test -n "${CONTAINER_REGISTRY}" || {
+    echo "ERROR: CONTAINER_REGISTRY variable is missing." >&2
+    exit 1
+  }
+  aws ecr get-login-password --region "${AWS_REGION}" |
+    docker login --username AWS --password-stdin "${CONTAINER_REGISTRY}"
+}
+
+function docker-push() {
+  local target=$1
+  print-and-run docker push $CONTAINER_REGISTRY/avengers/$target:$IMAGE_TAG
+}
+
+function update-pod() {
+  local target=$1
+  kubectl get deployment $(kubectl get deployment | awk '/'$target'/ {print $1}') -o json |
+    jq ".spec.template.spec.containers[0].image = \"$CONTAINER_REGISTRY/avengers/$target:$IMAGE_TAG\"" - |
+    jq '.spec.template.spec.containers[0].imagePullPolicy = "Always"' - |
+    kubectl apply -f -
+  kubectl delete pod $(kubectl get pods | awk '/'$target'/ {print $1}')
+  newpod=$(kubectl get pods | awk '/'$target'/ {print $1}')
+  echo "INFO: Updated pod: $newpod" >&2
+}
+
+function tag-and-push() {
+  local target=$1
+  print-and-run docker tag avengers/$target:latest $CONTAINER_REGISTRY/avengers/$target:$IMAGE_TAG
+
+  docker-push $target
+
+  update-pod $target
+}
+
+targets=${@}
+echo "building targets: $targets..."
+echo
+
+# build all targets
+for target in $targets; do
+  echo "make $target-docker"
+  make $target-docker
+  echo
+done
+
+echo "logging into docker registry..."
+docker-login # || true
+
+echo "pushing all targets..."
+echo
+
+# tag and push all targets concurrently
+for target in $targets; do
+  tag-and-push $target &
+done
+
+# wait for all targets to finish
+wait
