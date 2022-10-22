@@ -126,7 +126,8 @@ alias zshconfig="vim ~/.zshrc"
 alias ohmyzsh="vim ~/.oh-my-zsh/"
 
 #PATH="$PATH:/Users/adam.levy/Library/Python/3.8/bin"
-PATH="/opt/local/bin:$PATH"                # MacPorts
+#PATH="/opt/local/bin:$PATH"                # MacPorts
+PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH" # homebrew gnu coreutils
 PATH="$(go env GOPATH)/bin:$PATH"          # golang
 PATH="$HOME/bin:$PATH"                     # custom scripts
 
@@ -139,18 +140,6 @@ source '/opt/local/lib/azure-cli/az.completion'
 source ~/.iterm2_shell_integration.zsh
 
 
-# Couchbase
-export COUCHBASE_ENDPOINT=couchbase://cp-couchbase-0000.cp-couchbase.default.svc
-export AWS_PROFILE=dbaas-test-0005-temp
-
-# cp-cli
-export CB_DEV_TENANT=6af08c0a-8cab-4c1c-b257-b521575c16d0
-export TEST_OVERRIDE_KEY=the-secret-test-override-key
-
-# docker-build-and-push
-export IMAGE_TAG=aslevy
-
-compdef '_dispatch make make' docker-build-and-push
 compdef '_dispatch which which' vim-which
 compdef '_dispatch which which' cat-which
 
