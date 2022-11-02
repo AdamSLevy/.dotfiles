@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-function usage() {
+usage() {
   echo "usage: $(basename $0) <command>"
 }
 
@@ -10,7 +10,7 @@ if [[ -z "$CMD" ]]; then
   exit 1
 fi
 
-function askYn() {
+askYn() {
   read -r -n1 -p "$1 [Y/n] " input
   echo
   case $input in
@@ -23,49 +23,83 @@ function askYn() {
   return 1
 }
 
-function echoCall() {
+echoCall() {
   echo $@
   $@
 }
 
+function createNewScript() {
+  local CMD_PATH=$1
+
+  if [[ -e "$CMD_PATH" ]]; then
+    echo "error: $CMD_PATH already exists"
+    exit 1
+  fi
+
+  cat >"$CMD_PATH" <<EOF
+#!/usr/bin/env bash
+
+usage() {
+  echo "usage: \$(basename \$0)"
+}
+
+if [[ \$# -ne 0 ]]; then
+  usage
+  exit 1
+fi
+
+# vim: shiftwidth=2
+EOF
+  echoCall chmod +x "$CMD_PATH"
+}
+
 BIN_DIR=$HOME/bin
 
-IS_NEW=false
 CMD_PATH=$(which "$CMD")
 if [ $? -ne 0 ]; then
   CMD_PATH=$BIN_DIR/$CMD
   if ! askYn "$CMD was not found in your PATH. Would you like to create $CMD_PATH?"; then
-    exit 0
+    exit 1
   fi
-  if [ -e $CMD_PATH ]; then
-    echo "warn: $CMD_PATH already exists"
-  else
-    echo "#!/usr/bin/env bash" >$CMD_PATH
-    IS_NEW=true
+  createNewScript "$CMD_PATH"
+else
+  case "$CMD_PATH" in
+    /usr/local/bin/* | "$HOME"/*) ;;
+    *)
+      echo "warn: $CMD_PATH is not in /usr/local/bin/ or $HOME/"
+      if ! askYn "Are you sure you want to edit $CMD_PATH?"; then
+        exit 1
+      fi
+      ;;
+  esac
+
+  if ! [ -w "$CMD_PATH" ]; then
+    SUDO=sudo
   fi
-fi
 
-case "$CMD_PATH" in
-  /usr/local/bin/*) ;;
-  $HOME/*) ;;
-  *)
-    echo "warn: editing file outside of /usr/local/bin/ or $HOME"
-    ;;
-esac
-
-if ! [ -w "$CMD_PATH" ]; then
-  SUDO=sudo
+  CMD_BACKUP=$($SUDO mktemp "$CMD_PATH.XXXX.bkp")
+  echoCall $SUDO cp "$CMD_PATH" "$CMD_BACKUP"
+  echoCall $SUDO chmod +x "$CMD_BACKUP"
 fi
 
 echoCall $SUDO vim "$CMD_PATH"
 
-if ! $IS_NEW; then
+if [[ -e "$CMD_BACKUP" ]] &&
+  diff -q "$CMD_BACKUP" "$CMD_PATH"; then
+  echoCall rm "$CMD_BACKUP"
   exit
 fi
 
-if ! askYn "Would you like to keep $CMD_PATH?"; then
-  echoCall rm $CMD_PATH
+if askYn "Would you like to keep your changes to $CMD_PATH?"; then
+  rm -f "$CMD_BACKUP"
   exit
 fi
 
-echoCall chmod +x $CMD_PATH
+if ! [[ -e "$CMD_BACKUP" ]]; then
+  echoCall rm "$CMD_PATH"
+  exit
+fi
+
+echoCall $SUDO mv "$CMD_BACKUP" "$CMD_PATH"
+
+# vim: shiftwidth=2
