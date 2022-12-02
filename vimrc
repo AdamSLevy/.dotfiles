@@ -48,9 +48,9 @@ set backspace=indent,eol,start
 " set all tabs to be spaces
 set expandtab
 set smarttab
-set tabstop=8
+set tabstop=2
 set softtabstop=0
-set shiftwidth=8
+set shiftwidth=2
 
 " set fold method to be based on markers
 set foldmethod=manual
@@ -173,7 +173,7 @@ if has("autocmd")
     autocmd FileType bash,html,javascript,css,ruby syntax on
     autocmd FileType go,c,cpp setlocal shiftwidth=8 tabstop=8 expandtab
 
-    autocmd FileType go nnoremap <leader>b :GoBuild<CR>
+    autocmd FileType go nnoremap <leader>b :wa \| GoBuild<CR>
     autocmd FileType go nnoremap <leader>e :GoRun<CR>
     autocmd FileType go nnoremap <leader>t :GoTest<CR>
     autocmd FileType go nnoremap <leader>r :GoRename<CR>
@@ -181,7 +181,7 @@ if has("autocmd")
     autocmd FileType rust nnoremap <leader>b :CBuild<CR>
     autocmd FileType rust nnoremap <leader>r :RustRun<CR>
     autocmd FileType rust nnoremap <leader>t :RustTest<CR>
-    autocmd FileType markdown set wrap linebreak textwidth=0 wrapmargin=0 formatoptions+=ta
+    autocmd FileType markdown set wrap linebreak textwidth=0 wrapmargin=0 formatoptions+=t
     autocmd FileType sh set formatoptions-=t
     autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
     autocmd BufReadPost *.html syntax on
@@ -311,7 +311,7 @@ Plug 'airblade/vim-gitgutter'
 
 Plug 'WolfgangMehner/bash-support', { 'tag': '*' }
 
-Plug 'z0mbix/vim-shfmt', { 'for': 'sh' }
+Plug 'z0mbix/vim-shfmt'
 
 Plug 'Yggdroot/indentLine'
 Plug 'pedrohdz/vim-yaml-folds'
@@ -398,7 +398,7 @@ set formatoptions+=q
 " 	deleted the paragraph will be reformatted.  See |auto-format|.
 " 	When the 'c' flag is present this only happens for recognized
 " 	comments.
-set formatoptions+=a
+" set formatoptions+=a
 
 " n	When formatting text, recognize numbered lists.  This actually uses
 " 	the 'formatlistpat' option, thus any kind of list can be used.  The
