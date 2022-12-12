@@ -75,12 +75,13 @@ plugins=(
         aws
         bazel
         colorize
+        cbclocal
         docker docker-compose
         macos macports man
         minikube kubectl kube-ps1
         git git-extras gitfast git-prompt git-open
         ssh-agent gpg-agent
-        golang
+        go
         history history-substring-search
         safe-paste
         terraform
@@ -149,12 +150,3 @@ export TEST_OVERRIDE_KEY=the-secret-test-override-key
 
 # docker-build-and-push
 export IMAGE_TAG=aslevy
-
-compdef '_dispatch make make' docker-build-and-push
-compdef '_dispatch which which' vim-which
-compdef '_dispatch which which' cat-which
-
-# Terraform completion
-autoload -U +X bashcompinit && bashcompinit
-complete -o nospace -C /opt/local/bin/terraform terraform
-
