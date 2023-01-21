@@ -13,6 +13,14 @@ if grep -q "$AUTH" "$SUDOERS"; then
 fi
 
 echo "updating $SUDOERS"
-chmod u+w "$SUDOERS"
-echo "$AUTH" | cat - "$SUDOERS" >"$TEMP" && mv "$TEMP" "$SUDOERS"
+
+if [[ $(id -u) -ne 0 ]]; then
+  echo "error: not running as root"
+  exit 1
+fi
+
+chmod u+w "$SUDOERS" || exit 1
+echo "$AUTH" | cat - "$SUDOERS" >"$TEMP" &&
+  mv "$TEMP" "$SUDOERS" &&
+  echo "done"
 chmod u-w "$SUDOERS"
