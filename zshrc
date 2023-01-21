@@ -3,6 +3,7 @@
 
 # Path to your oh-my-zsh installation.
 export ZSH="/Users/adam.levy/.oh-my-zsh"
+export ZSH_CUSTOM="$ZSH/custom"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -75,6 +76,7 @@ plugins=(
         aws
         bazel
         colorize
+        colored-man-pages
         cbclocal
         docker docker-compose
         macos macports man
@@ -106,6 +108,7 @@ source $ZSH/oh-my-zsh.sh
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
 
+export EDITOR=vim
 # Preferred editor for local and remote sessions
 # if [[ -n $SSH_CONNECTION ]]; then
 #   export EDITOR='vim'
@@ -134,7 +137,8 @@ PATH="$HOME/bin:$PATH"                     # custom scripts
 PATH="$PATH:${KREW_ROOT:-$HOME/.krew}/bin" # kubectl plugins
 export PATH
 
-export PAGER="less -XF "
+export PAGER="less"
+export LESS="-RF"
 
 source '/opt/local/lib/azure-cli/az.completion'
 source ~/.iterm2_shell_integration.zsh
@@ -150,3 +154,5 @@ export TEST_OVERRIDE_KEY=the-secret-test-override-key
 
 # docker-build-and-push
 export IMAGE_TAG=aslevy
+
+export GODOC_FORMAT=term

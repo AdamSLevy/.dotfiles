@@ -301,7 +301,7 @@ Plug 'tpope/vim-repeat', { 'tag': '*' }
 Plug 'tpope/vim-surround', { 'tag': '*' }
 
 Plug 'junegunn/seoul256.vim'
-Plug 'fatih/vim-go', { 'tag': 'v1.25', 'do': ':GoUpdateBinaries' }
+Plug 'fatih/vim-go', { 'tag': '*', 'do': ':GoUpdateBinaries' }
 "Plug 'tabnine/YouCompleteMe'
 "Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
@@ -360,6 +360,9 @@ let g:shfmt_extra_args = '-i 2 -ci'
 let g:indentLine_char_list = ['·', ':', '⋮', '⁞','|', '¦', '┆', '┊']
 
 let g:go_build_tags = 'integration,developer'
+" let g:go_debug = ['shell-commands', 'debugger-state', 'debugger-commands', 'lsp']
+let g:go_def_mode='gopls'
+let g:go_info_mode='gopls'
 
 let g:rustfmt_autosave = 1
 let g:rust_clip_command = 'pbcopy'
