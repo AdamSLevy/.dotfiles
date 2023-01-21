@@ -174,9 +174,10 @@ if has("autocmd")
     autocmd FileType go,c,cpp setlocal shiftwidth=8 tabstop=8 expandtab
 
     autocmd FileType go nnoremap <leader>b :wa \| GoBuild<CR>
-    autocmd FileType go nnoremap <leader>e :GoRun<CR>
-    autocmd FileType go nnoremap <leader>t :GoTest<CR>
-    autocmd FileType go nnoremap <leader>r :GoRename<CR>
+    autocmd FileType go nnoremap <leader>e :wa \| GoRun<CR>
+    autocmd FileType go nnoremap <leader>t :wa \| GoTestCompile<CR>
+    autocmd FileType go nnoremap <leader>T :wa \| GoTest<CR>
+    autocmd FileType go nnoremap <leader>r :wa \| GoRename<CR>
 
     autocmd FileType rust nnoremap <leader>b :CBuild<CR>
     autocmd FileType rust nnoremap <leader>r :RustRun<CR>
@@ -266,7 +267,7 @@ vnoremap <leader>P "+P
 
 " Improve scrolling latency by limiting syntax highlighting region
 set lazyredraw
-set synmaxcol=200
+" set synmaxcol=200
 syntax sync minlines=95
 
 " " Improve PageUp and PageDown scrolling to retain cursor position
@@ -291,9 +292,10 @@ Plug 'tpope/vim-rhubarb'
 Plug 'tpope/vim-eunuch', { 'tag': '*' }
 Plug 'tpope/vim-repeat', { 'tag': '*' }
 Plug 'tpope/vim-surround', { 'tag': '*' }
+Plug 'tpope/vim-abolish', { 'tag': '*' }
 
 Plug 'junegunn/seoul256.vim'
-Plug 'fatih/vim-go', { 'tag': 'v1.25', 'do': ':GoUpdateBinaries' }
+Plug 'fatih/vim-go', { 'tag': '*', 'do': ':GoUpdateBinaries' }
 
 Plug 'github/copilot.vim'
 
@@ -329,6 +331,8 @@ Plug 'mrded/vim-github-codeowners', {'do': 'npm install'}
 Plug 'habamax/vim-asciidoctor'
 
 Plug 'dkarter/bullets.vim'
+
+Plug 'bogado/file-line' " supports `vim file:line`
 
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
