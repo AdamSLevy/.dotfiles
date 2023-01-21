@@ -3,6 +3,7 @@
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
+export ZSH_CUSTOM="$ZSH/custom"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -42,7 +43,7 @@ HYPHEN_INSENSITIVE="true"
 # DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
-ENABLE_CORRECTION="true"
+# ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
 COMPLETION_WAITING_DOTS="true"
@@ -74,27 +75,43 @@ ZSH_THEME_TF_PROMPT_SUFFIX="%{$reset_color%}"
 plugins=(
         aws
         bazel
+        brew
         colorize
-        docker docker-compose
-        macos macports man
-        minikube kubectl kube-ps1
-        git git-extras gitfast git-prompt
-        ssh-agent gpg-agent
-        golang
-        history history-substring-search
+        common-aliases
+        docker 
+        docker-compose
+        macos 
+        # macports 
+        man
+        colored-man-pages
+        minikube 
+        kubectl 
+        kube-ps1
+        git 
+        git-extras 
+        gitfast 
+        git-prompt
+        ssh-agent 
+        gpg-agent
+        go
+        history 
+        history-substring-search
+        hugo
         safe-paste
         terraform
-        z zsh-interactive-cd
+        z 
+        zsh-interactive-cd
 )
 
 zstyle :omz:plugins:ssh-agent identities github
 zstyle :omz:plugins:ssh-agent lifetime 12h
 
-# speed up completions
-# From https://coderwall.com/p/9fksra/speed-up-your-zsh-completionl
-zstyle ':completion:*' accept-exact '*(N)'
-zstyle ':completion:*' use-cache on
-zstyle ':completion:*' cache-path ~/.zsh/cache
+fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
+
+
+if ! type fzf >/dev/null; then
+  echo "warning: fzf is not installed; completion for cd will not work correctly"
+fi
 
 source $ZSH/oh-my-zsh.sh
 
@@ -103,11 +120,11 @@ source $ZSH/oh-my-zsh.sh
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
-# export LANG=en_US.UTF-8
+export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
 # if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
+  export EDITOR='vim'
 # else
 #   export EDITOR='mvim'
 # fi
@@ -121,8 +138,10 @@ source $ZSH/oh-my-zsh.sh
 # For a full list of active aliases, run `alias`.
 #
 # Example aliases
-alias vim="nvim"
+alias vi="vim"
+alias vim="nvim -p"
 alias zshconfig="vim ~/.zshrc"
+alias zshrc="vim ~/.zshrc"
 alias ohmyzsh="vim ~/.oh-my-zsh/"
 
 #PATH="$PATH:/Users/adam.levy/Library/Python/3.8/bin"
@@ -134,14 +153,13 @@ PATH="$HOME/bin:$PATH"                     # custom scripts
 PATH="$PATH:${KREW_ROOT:-$HOME/.krew}/bin" # kubectl plugins
 export PATH
 
-export PAGER="less -XF "
+export PAGER="less"
+export LESS="-RF"
 
 source ~/.iterm2_shell_integration.zsh
 
+export GODOC_FORMAT=term
 
-compdef '_dispatch which which' vim-which
-compdef '_dispatch which which' cat-which
+alias rm="rm -I"
 
-# Terraform completion
-autoload -U +X bashcompinit && bashcompinit
-complete -o nospace -C /opt/local/bin/terraform terraform
+# vim: sw=2
