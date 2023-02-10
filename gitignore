@@ -1,0 +1,19 @@
+# vim
+*~
+*.sw[a-z]
+tags
+
+*.logs
+*.log
+
+# sqlite
+*.sqlite3
+*-journal
+*-wal
+*-shm
+
+/bin
+
+/.go-doc
+
+# vi: ft=.gitignore
