@@ -173,17 +173,21 @@ if has("autocmd")
     autocmd FileType bash,html,javascript,css,ruby syntax on
     autocmd FileType go,c,cpp setlocal shiftwidth=8 tabstop=8 expandtab
 
-    autocmd FileType go nnoremap <leader>b :wa \| GoBuild<CR>
-    autocmd FileType go nnoremap <leader>e :wa \| GoRun<CR>
-    autocmd FileType go nnoremap <leader>t :wa \| GoTestCompile<CR>
+    autocmd FileType go nnoremap <leader>b :wa \| GoTestCompile<CR>
+    autocmd FileType go nnoremap <leader>B :wa \| GoBuild<CR>
+    autocmd FileType go nnoremap <leader>t :wa \| GoAlternate<CR>
     autocmd FileType go nnoremap <leader>T :wa \| GoTest<CR>
     autocmd FileType go nnoremap <leader>r :wa \| GoRename<CR>
+    autocmd FileType go nnoremap <leader>R :wa \| GoRun<CR>
 
     autocmd FileType rust nnoremap <leader>b :CBuild<CR>
-    autocmd FileType rust nnoremap <leader>r :RustRun<CR>
-    autocmd FileType rust nnoremap <leader>t :RustTest<CR>
+    autocmd FileType rust nnoremap <leader>R :RustRun<CR>
+    autocmd FileType rust nnoremap <leader>T :RustTest<CR>
+
     autocmd FileType markdown set wrap linebreak textwidth=0 wrapmargin=0 formatoptions+=t
+
     autocmd FileType sh set formatoptions-=t
+
     autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
     autocmd BufReadPost *.html syntax on
     autocmd BufRead *.md set ft=markdown
