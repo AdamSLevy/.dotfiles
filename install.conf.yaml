@@ -10,6 +10,8 @@
     ~/.vimrc:
     ~/.zshrc:
     ~/bin:
+    ~/.gitconfig:
+    ~/.gitignore:
 
 - shell:
   - [git submodule update --init --recursive, Installing submodules]
