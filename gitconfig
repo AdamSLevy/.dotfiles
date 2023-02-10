@@ -1,7 +1,13 @@
 [user]
-  signingkey = DC2C0B428D8F0F9B
-  email = adam.levy@couchbase.com
-  name = Adam Levy
+  name = "Adam S. Levy"
+  email = "adam.levy@couchbase.com"
+  signingkey = "DC2C0B428D8F0F9B"
+
+[commit]
+  gpgsign = true
+
+[init]
+  defaultBranch = main
 
 [alias]
   lg = log --color --graph \
@@ -19,36 +25,50 @@
 
 [url "ssh://git@github.com/AdamSLevy/"]
   insteadOf = https://github.com/AdamSLevy/
+
 [url "ssh://git@github.com/couchbaselabs"]
   insteadOf = https://github.com/couchbaselabs
+
+[url "ssh://git@github.com/couchbasecloud"]
+  insteadOf = https://github.com/couchbasecloud
+
 [pull]
   rebase = false
 
 [core]
   excludesFile = ~/.gitignore
   pager = delta -s
-[commit]
-  gpgsign = true
+
+[interactive]
+  diffFilter = delta --color-only
+
+[delta]
+  navigate = true
+  side-by-side = true
+  hyperlinks = true
 
 [diff]
   tool = meld
+  colorMoved = default
+
 [difftool]
   prompt = false
+
 [difftool "meld"]
   trustExitCode = true
   cmd = open -W -a Meld --args \"$LOCAL\" \"$REMOTE\"
+
 [merge]
   tool = meld
   conflictstyle = diff3
+
 [mergetool]
   prompt = false
+
 [mergetool "meld"]
   trustExitCode = true
   cmd = open -W -a Meld --args --diff \"$PWD/$LOCAL\" \"$PWD/$MERGED\" \"$PWD/$REMOTE\" --diff \"$PWD/$LOCAL\" \"$PWD/$BASE\" --diff \"$PWD/$BASE\" \"$PWD/$REMOTE\" --output \"$PWD/$MERGED\"
         #cmd = open -W -a Meld --args --auto-merge \"$LOCAL\" \"$BASE\" \"$REMOTE\" --output=\"$MERGED\"
         #cmd = meld
-
-[init]
-  defaultBranch = main
 
 # vi: ft=gitconfig sw=2
