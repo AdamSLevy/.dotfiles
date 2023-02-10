@@ -6,3 +6,5 @@ tags
 *.env.mine
 
 .go-doc/
+
+# vi: ft=gitignore
