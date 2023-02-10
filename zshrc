@@ -163,3 +163,4 @@ export GODOC_FORMAT=term
 alias rm="rm -I"
 
 # vim: sw=2
+export PATH="/opt/homebrew/opt/sqlite/bin:$PATH"
