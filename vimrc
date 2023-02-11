@@ -368,8 +368,10 @@ set updatetime=300 " ms
 
 " Git shortcuts
 " copy a link to github.
-nnoremap <leader>g :GBrowse!<CR>
+nnoremap <leader>g V:GBrowse!<CR><ESC>
 vnoremap <leader>g :GBrowse!<CR>
+nnoremap <leader>G V:GBrowse<CR><ESC>
+vnoremap <leader>G :GBrowse<CR>
 
 "yaml linting
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
