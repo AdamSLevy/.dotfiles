@@ -367,9 +367,10 @@ let g:rust_clip_command = 'pbcopy'
 set updatetime=300 " ms
 
 " Git shortcuts
-" copy a link to github.
+" copy a link to github for the current file and line.
 nnoremap <leader>g V:GBrowse!<CR><ESC>
 vnoremap <leader>g :GBrowse!<CR>
+" open the link to github for the current file and line.
 nnoremap <leader>G V:GBrowse<CR><ESC>
 vnoremap <leader>G :GBrowse<CR>
 
