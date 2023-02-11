@@ -367,9 +367,12 @@ let g:rust_clip_command = 'pbcopy'
 set updatetime=300 " ms
 
 " Git shortcuts
-" copy a link to github.
-nnoremap <leader>g :GBrowse!<CR>
+" copy a link to github for the current file and line.
+nnoremap <leader>g V:GBrowse!<CR><ESC>
 vnoremap <leader>g :GBrowse!<CR>
+" open the link to github for the current file and line.
+nnoremap <leader>G V:GBrowse<CR><ESC>
+vnoremap <leader>G :GBrowse<CR>
 
 "yaml linting
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
