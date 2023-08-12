@@ -9,6 +9,7 @@
 
 [core]
   pager = delta
+	excludesfile = /Users/adamlevy/.gitignore
 
 [interactive]
   diffFilter = delta --color-only
