@@ -26,3 +26,5 @@
   colorMoved = default
 
 # vim: ft=gitconfig sw=2
+[url "ssh://git@github.com/"]
+	insteadOf = https://github.com/
