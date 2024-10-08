@@ -96,14 +96,13 @@ plugins=(
         go
         history 
         history-substring-search
-        hugo
         safe-paste
         terraform
         z 
         zsh-interactive-cd
 )
 
-zstyle :omz:plugins:ssh-agent identities github
+zstyle :omz:plugins:ssh-agent identities adam_at_aslevy
 zstyle :omz:plugins:ssh-agent lifetime 12h
 
 fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
@@ -154,7 +153,7 @@ PATH="$PATH:${KREW_ROOT:-$HOME/.krew}/bin" # kubectl plugins
 export PATH
 
 export PAGER="less"
-export LESS="-RF"
+# export LESS="-RF"
 
 source ~/.iterm2_shell_integration.zsh
 
@@ -164,3 +163,9 @@ alias rm="rm -I"
 
 # vim: sw=2
 export PATH="/opt/homebrew/opt/sqlite/bin:$PATH"
+
+
+
+
+
+

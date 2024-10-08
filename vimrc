@@ -229,8 +229,10 @@ set spelllang=en
 set spellfile=$HOME/.vimrc/spell/en.utf-8.add
 
 nnoremap <F2> :TagbarToggle<CR>
-nnoremap <F3> :CtrlPMixed<CR>
+" nnoremap <F3> :CtrlPMixed<CR>
 nnoremap <F4> :NERDTreeToggle<CR>
+
+let g:ctrlp_map = '<F3>'
 
 " Prevent the middle mouse button from pasting the clipboard. Important for
 " using ThinkPad TrackPoint keyboards.
@@ -297,6 +299,15 @@ Plug 'tpope/vim-eunuch', { 'tag': '*' }
 Plug 'tpope/vim-repeat', { 'tag': '*' }
 Plug 'tpope/vim-surround', { 'tag': '*' }
 Plug 'tpope/vim-abolish', { 'tag': '*' }
+Plug 'tpope/vim-dadbod', { 'tag': '*' }
+Plug 'tpope/vim-dispatch', { 'tag': '*' }
+
+Plug 'kristijanhusak/vim-dadbod-ui'
+Plug 'kristijanhusak/vim-dadbod-completion'
+" Plug 'vim-scripts/SQLUtilities', { 'tag': '*' }
+Plug 'vim-scripts/Align', { 'tag': '*' }
+
+Plug 'farmergreg/vim-lastplace', { 'tag': '*' }
 
 Plug 'junegunn/seoul256.vim'
 Plug 'fatih/vim-go', { 'tag': '*', 'do': ':GoUpdateBinaries' }
@@ -336,10 +347,27 @@ Plug 'habamax/vim-asciidoctor'
 
 Plug 'dkarter/bullets.vim'
 
+Plug 'normen/vim-pio'
+
+Plug 'vim-scripts/c.vim'
+
+" Plug 'prabirshrestha/vim-lsp'
+" Plug 'mattn/vim-lsp-settings'
+" Plug 'prabirshrestha/asyncomplete.vim'
+
+" Plug 'WolfgangMehner/c-support'
+" Plug 'WolfgangMehner/bash-support'
+
+
+
 Plug 'bogado/file-line' " supports `vim file:line`
 
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
+
+" SQLUtilities
+let g:sqlutil_align_comma = 1
+let g:sqlutil_keyword_case = '\U'
 
 colorscheme seoul256
 
@@ -434,3 +462,7 @@ set formatoptions+=1
 " 	Becomes:
 " 		int i;   // the index in the list ~
 set formatoptions+=j
+
+set switchbuf=useopen,usetab,newtab
+
+let NERDTreeCustomOpenArgs={'file': {'reuse': 'all', 'where': 't', 'keepopen':1}, 'dir': {}}

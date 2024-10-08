@@ -3,7 +3,7 @@ compdef '_dispatch which which' cat-which
 
 # Terraform completion
 autoload -U +X bashcompinit && bashcompinit
-complete -o nospace -C /opt/local/bin/terraform terraform
+# complete -o nospace -C /opt/local/bin/terraform terraform
 
 # colored completion output for directories
 zstyle ':completion:*:default' list-colors ${(s.:.)LSCOLORS}
@@ -14,11 +14,11 @@ zstyle ':completion:*' file-sort access follow
 # group the different type of matches under their descriptions
 zstyle ':completion:*' group-name ''
 
-zstyle ':completion:*:*:-command-:*:*' group-order alias builtins functions commands
+zstyle ':completion:*:*:-command-:*:*' group-order 'alias' 'builtins' 'functions' 'commands'
 
-zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-/]=* r:|=*' 'l:|=* r:|=*'
+# zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-/]=* r:|=*' 'l:|=* r:|=*'
 
-zstyle ':completion:*' accept-exact false
+# zstyle ':completion:*' accept-exact false
 
 # format descriptions, messages, and warnings
 zstyle ':completion:*:*:*:*:descriptions' format '%F{green}-- %d --%f'
