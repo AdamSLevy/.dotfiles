@@ -1,7 +1,7 @@
 [user]
-  name = "Adam S. Levy"
-  email = "adam@aslevy.com"
-  signingkey = "AE07BC95"
+  name = "Adam Levy"
+  email = "alevy@ebay.com"
+	signingkey = /Users/alevy/.ssh/id_rsa.pub
 [commit]
   gpgsign = true
 [init]
@@ -30,3 +30,5 @@
 	insteadOf = https://github.com/
 [push]
 	autoSetupRemote = yes
+[gpg]
+	format = ssh

@@ -102,7 +102,7 @@ plugins=(
         zsh-interactive-cd
 )
 
-zstyle :omz:plugins:ssh-agent identities adam_at_aslevy
+zstyle :omz:plugins:ssh-agent identities id_rsa
 zstyle :omz:plugins:ssh-agent lifetime 12h
 
 fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
