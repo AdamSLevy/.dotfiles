@@ -1,5 +1,5 @@
 [user]
-  name = "Adam Levy"
+  name = "Adam S. Levy"
   email = "alevy@ebay.com"
 	signingkey = /Users/alevy/.ssh/id_rsa.pub
 [commit]
@@ -9,26 +9,36 @@
 
 [core]
   pager = delta
-	excludesfile = /Users/adamlevy/.gitignore
+  excludesfile = /Users/alevy/.gitignore
 
 [interactive]
   diffFilter = delta --color-only
 
 [delta]
-  navigate = true
-  side-by-side = true
-  hyperlinks = true
+  navigate = true     ; use n and N to move forward and backward through files
+                      ; and commits
+
+  side-by-side = true ; view diffs side-by-side instead of vertically stacked
+
+  hyperlinks = true   ; if your terminal supports hyperlinks, you can cmd+click
+                      ; on a file to open it in your editor.
 
 [merge]
-  conflictstyle = diff3
+  conflictstyle = diff3 ; show three-way diffs for resolving conflicts
 
 [diff]
-  colorMoved = default
+  colorMoved = default ; color code that was moved but not changed differently
+                       ; than added/removed code
 
-# vim: ft=gitconfig sw=2
-[url "ssh://git@github.com/"]
-	insteadOf = https://github.com/
 [push]
 	autoSetupRemote = yes
 [gpg]
 	format = ssh
+ 
+[url "ssh://git@github.corp.ebay.com"]
+	insteadOf = https://github.corp.ebay.com
+
+[http]
+	sslCAInfo = /Library/Application Support/Netskope/STAgent/download/nscacert_combined.pem
+
+# vim: ft=gitconfig sw=2
