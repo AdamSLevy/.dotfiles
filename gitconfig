@@ -26,6 +26,9 @@
   hyperlinks = true   ; if your terminal supports hyperlinks, you can cmd+click
                       ; on a file to open it in your editor.
 
+  true-color = always ; Ensure use of 24-bit color even if COLORTERM isn't set
+                      ; to truecolor
+
 [merge]
   conflictstyle = diff3 ; show three-way diffs for resolving conflicts
 
