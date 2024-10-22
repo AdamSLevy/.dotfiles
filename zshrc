@@ -123,7 +123,7 @@ export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
 # if [[ -n $SSH_CONNECTION ]]; then
-  export EDITOR='vim'
+  export EDITOR='nvim'
 # else
 #   export EDITOR='mvim'
 # fi
@@ -153,7 +153,7 @@ PATH="$PATH:${KREW_ROOT:-$HOME/.krew}/bin" # kubectl plugins
 export PATH
 
 export PAGER="less"
-# export LESS="-RF"
+export LESS="--RAW-CONTROL-CHARS --quit-if-one-screen --use-color --ignore-case"
 
 source ~/.iterm2_shell_integration.zsh
 
@@ -164,8 +164,12 @@ alias rm="rm -I"
 # vim: sw=2
 export PATH="/opt/homebrew/opt/sqlite/bin:$PATH"
 
+export PATH="/opt/tess/bin:$PATH"
 
 
 
 
 
+
+# Setting NodeJS Extra CA Path
+export NODE_EXTRA_CA_CERTS="/Library/Application Support/Netskope/STAgent/download/nscacert_combined.pem"
