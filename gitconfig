@@ -11,6 +11,9 @@
   pager = delta
   excludesfile = /Users/alevy/.gitignore
 
+[pager]
+  blame = delta
+
 [interactive]
   diffFilter = delta --color-only
 
