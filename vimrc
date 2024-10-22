@@ -196,7 +196,7 @@ if has("autocmd")
 
     "autocmd InsertLeavePre * :call <SID>StripTrailingWhitespacesFromCurrentLineIfComment()
 
-    autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+    autocmd FileType yaml,yml setlocal ts=2 sts=2 sw=2 expandtab foldmethod=indent foldlevelstart=2
 
     autocmd FileType go let b:go_fmt_options = {
       \ 'goimports': '-local ' .
@@ -351,14 +351,14 @@ Plug 'normen/vim-pio'
 
 Plug 'vim-scripts/c.vim'
 
+Plug 'dense-analysis/ale'
+
 " Plug 'prabirshrestha/vim-lsp'
 " Plug 'mattn/vim-lsp-settings'
 " Plug 'prabirshrestha/asyncomplete.vim'
 
 " Plug 'WolfgangMehner/c-support'
 " Plug 'WolfgangMehner/bash-support'
-
-
 
 Plug 'bogado/file-line' " supports `vim file:line`
 
@@ -368,8 +368,6 @@ call plug#end()
 " SQLUtilities
 let g:sqlutil_align_comma = 1
 let g:sqlutil_keyword_case = '\U'
-
-colorscheme seoul256
 
 if filereadable(".lvimrc")
     source .lvimrc
@@ -383,7 +381,7 @@ let g:terraform_align=1
 let g:shfmt_fmt_on_save = 1
 let g:shfmt_extra_args = '-i 2 -ci'
 
-let g:indentLine_char_list = ['·', ':', '⋮', '⁞','|', '¦', '┆', '┊']
+"let g:indentLine_char_list = ['·', ':', '⋮', '⁞','|', '¦', '┆', '┊']
 
 let g:go_build_tags = 'integration,developer'
 
@@ -466,3 +464,5 @@ set formatoptions+=j
 set switchbuf=useopen,usetab,newtab
 
 let NERDTreeCustomOpenArgs={'file': {'reuse': 'all', 'where': 't', 'keepopen':1}, 'dir': {}}
+
+colorscheme seoul256
