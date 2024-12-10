@@ -105,7 +105,7 @@ plugins=(
 zstyle :omz:plugins:ssh-agent identities id_rsa
 zstyle :omz:plugins:ssh-agent lifetime 12h
 
-fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
+# fpath+=${ZSH_CUSTOM:-${ZSH:-$HOME/.oh-my-zsh}/custom}/plugins/zsh-completions/src
 
 
 if ! type fzf >/dev/null; then
@@ -139,9 +139,9 @@ export LANG=en_US.UTF-8
 # Example aliases
 alias vi="vim"
 alias vim="nvim -p"
-alias zshconfig="vim ~/.zshrc"
-alias zshrc="vim ~/.zshrc"
-alias ohmyzsh="vim ~/.oh-my-zsh/"
+alias zshconfig="vim $HOME/.zshrc"
+alias zshrc="vim $HOME/.zshrc"
+alias ohmyzsh="vim $HOME/.oh-my-zsh/"
 
 #PATH="$PATH:/Users/adam.levy/Library/Python/3.8/bin"
 #PATH="/opt/local/bin:$PATH"                # MacPorts
@@ -155,7 +155,7 @@ export PATH
 export PAGER="less"
 export LESS="--RAW-CONTROL-CHARS --quit-if-one-screen --use-color --ignore-case"
 
-source ~/.iterm2_shell_integration.zsh
+source $HOME/.iterm2_shell_integration.zsh
 
 export GODOC_FORMAT=term
 
@@ -166,10 +166,7 @@ export PATH="/opt/homebrew/opt/sqlite/bin:$PATH"
 
 export PATH="/opt/tess/bin:$PATH"
 
-
-
-
-
-
 # Setting NodeJS Extra CA Path
 export NODE_EXTRA_CA_CERTS="/Library/Application Support/Netskope/STAgent/download/nscacert_combined.pem"
+
+source "$HOME/.env_keys.zsh"
